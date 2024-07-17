@@ -49,10 +49,56 @@ contract loteria is ERC20, Ownable {
         _mint(address(this), _cantidad);
     }
 
+    // registro de usuarios
+    function registrar() internal {
+        address addr_personal_contract = address(new boletosNFTs(msg.sender, address(this), nft));
+        usuario_contract[msg.sender] = addr_personal_contract; 
+    }
+
+    // informacion de un usuario
+    function usersInfo(address _account) public view returns(address){
+        return usuario_contract[_account];
+    }
+}
+
+// smart contract de gestions de nfts
+contract mainERC721 is ERC721 {
+    address public direccionLoteria;
+
+    constructor() ERC721("Loteria", "STE"){
+        direccionLoteria = msg.sender;
+    }
+
+    // creacion de nfts
+    function safeMint(address _propietario, uint256 _boleto) public {
+        require(msg.sender == loteria(direccionLoteria).usersInfo(_propietario), "no tienes permisos para ejecutar esta funcion");
+        _safeMint(_propietario, _boleto);
+    }
 
 }
 
+contract boletosNFTs {
+    // datos relevantes del propietario
+    struct Owner {
+        address direccionPropietario;
+        address contratoPadre;
+        address contratoNFT;
+        address contratoUsuario;
+    }
+    // estructura de datos de tipo owner
+    Owner public propietario;
 
-contract mainERC721 is ERC721 {
-    constructor() ERC721("Loteria", "STE"){}
+
+    // constructor del smart contrar hijo
+    constructor(address _propietario, address _contratoPadre, address _contratoNFT) {
+        propietario = Owner(_propietario, _contratoPadre, _contratoNFT, address(this));
+    }
+
+    // conversionde los numeros de los boletos de loteria
+    function mintBoleto(address _propietario, uint _boleto) public {
+        require(msg.sender == propietario.contratoPadre, "No tienes permisos para ejecutar esta funcion");
+        mainERC721(propietario.contratoNFT).safeMint(_propietario, _boleto);
+    }
+
+
 }

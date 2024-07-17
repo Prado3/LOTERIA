@@ -420,6 +420,25 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_account",
+						"type": "address"
+					}
+				],
+				"name": "usersInfo",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "",
 						"type": "address"
 					}
@@ -611,11 +630,11 @@
 			]
 		},
 		"contracts/loteria.sol": {
-			"keccak256": "0x15062b3fdc30d0de4260ec43ed6087fddf845751a14d6cf0095d5ad44493ac7b",
+			"keccak256": "0x16a093f170c74617e01b37521a4a61fcd544cbe18437763969d1bc80338bf820",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9753280fade24a883b26064739aaac0966c79be5a2a54269461d2c43e5120d6d",
-				"dweb:/ipfs/QmXzkpPq7d7nGZwGnYKEMs7bzqXgHaLSaPrMYb9n3sSavM"
+				"bzz-raw://e3d01a274827f1209fcf55ffe5365f00e94bbe881c712e6765f9058a83ef4903",
+				"dweb:/ipfs/QmeKteiiG3c1UxQa6NxqiwZcBcVBumTNudfKSLjtdcSYiB"
 			]
 		}
 	},
